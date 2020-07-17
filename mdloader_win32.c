@@ -66,24 +66,29 @@ int read_data(int addr, int readsize)
         if (verbose) printf("Error writing port [%s](%lu)\n",wbuf,GetLastError());
         return 0;
     }
+printf("WriteFile OK!\n");
 
     if (ret != writelen)
     {
         if (verbose) printf("Error writing %i bytes [%lu]\n",writelen,ret);
         return 0;
     }
+printf("ret == writelen OK!\n");
 
     if (!ReadFile(gport, &readdata, readsize, &ret, NULL))
     {
         if (verbose) printf("Error reading port [%i][%lu](%lu)\n",readsize,ret,GetLastError());
         return 0;
     }
+printf("ReadFile OK!\n");
+printf("readdata=%d\n", readdata);
 
     if (ret != readsize)
     {
         if (verbose) printf("Error reading %i bytes! [%lu]\n",readsize,ret);
         return 0;
     }
+printf("ret == readsize OK!\n");
 
     read_error = 0; //Clear read error flag
 

@@ -326,10 +326,31 @@ int test_mcu(char silent)
     int8_t mcu_max = sizeof(mcus) / sizeof(mcu_t);
     int deviceid;
 
+printf("mcu_max=%d\n", mcu_max);
     for (mcu_index = 0; mcu_index < mcu_max; mcu_index++)
     {
+printf("mcu_index=%d\n", mcu_index);
+/*
+typedef struct mcu_s {
+    char name[20];      //MCU Name
+    int cidr_addr;      //Chip ID Address
+    int cidr;           //Chip ID
+    int flash_size;     //Program Memory (FLASH_SIZE)
+    int ram_size;       //Data Memory (HSRAM_SIZE)
+    int flash_addr;     //Program Addr (FLASH_ADDR)
+    int ram_addr;       //Data Addr (HSRAM_ADDR)
+} mcu_t;
+*/
         mcu = (mcu_t *)&mcus[mcu_index];
+printf("mcu->name=%s\n", mcu->name);
+printf("mcu->cidr_addr=%d\n", mcu->cidr_addr);
+printf("mcu->cidr=%d\n", mcu->cidr);
+printf("mcu->flash_size=%d\n", mcu->flash_size);
+printf("mcu->ram_size=%d\n", mcu->ram_size);
+printf("mcu->flash_addr=%d\n", mcu->flash_addr);
+printf("mcu->ram_addr=%d\n", mcu->ram_addr);
         deviceid = read_word(mcu->cidr_addr);
+printf("deviceid=%d\n", deviceid);
         if (read_error)
         {
             if (!silent && verbose) printf("Notice: Could not read device ID at %08X!\n", mcu->cidr_addr);
